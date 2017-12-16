@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "LibraryBook")
 public class LibraryBook {
 
-    @Id
     private long bookId;
     private String name;
     private String isbn;
