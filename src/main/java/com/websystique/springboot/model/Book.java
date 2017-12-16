@@ -2,18 +2,30 @@ package com.websystique.springboot.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.validation.constraints.NotNull;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Book {
 
+    @NotNull
     private long bookId;
+    @NotNull
     private String name;
+    @NotNull
     private String isbn;
+    @NotNull
     private String genre;
+    @NotNull
     private String type;
+    @NotNull
     private String author;
+    @NotNull
     private String publicationDate;
+    @NotNull
     private String edition;
+    @NotNull
     private String price;
+    @NotNull
     private String metaData;
 
     public long getBookId() {
