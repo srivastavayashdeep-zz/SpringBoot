@@ -1,7 +1,10 @@
 package com.websystique.springboot.controller;
 
+import com.websystique.springboot.model.Book;
 import com.websystique.springboot.model.Domain;
+import com.websystique.springboot.model.LibraryBook;
 import com.websystique.springboot.model.User;
+import com.websystique.springboot.repository.BookRepository;
 import com.websystique.springboot.repository.DomainRepository;
 import com.websystique.springboot.service.UserService;
 import com.websystique.springboot.util.CustomErrorType;
@@ -17,7 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/library")
 public class RestApiController {
 
     public static final Logger logger = LoggerFactory.getLogger(RestApiController.class);
@@ -28,8 +31,25 @@ public class RestApiController {
     @Autowired
     DomainRepository domainRepository;
 
+    @Autowired
+    BookRepository bookRepository;
+
     // -------------------Retrieve All Users---------------------------------------------
 
+
+    @RequestMapping(value = "/add/", method = RequestMethod.POST)
+    public ResponseEntity addBooks(@RequestBody List<Book> books) {
+        Boolean booksSaved = userService.addBooks(books);
+        System.out.println("Books saved in DB : "+booksSaved);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public ResponseEntity searchBooks(@RequestParam("searchBooks") String itemid) {
+        List<LibraryBook> books = bookRepository.findBybookIdOrName(itemid);
+        System.out.println("Books from DB : ");
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/add/", method = RequestMethod.GET)
     public ResponseEntity addDomain() {
